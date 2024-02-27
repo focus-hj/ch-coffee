@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="waiter-service" />
         <module name="customer-service" />
+        <module name="barista-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="customer-service" options="-parameters" />
       <module name="waiter-service" options="-parameters" />
     </option>
   </component>
