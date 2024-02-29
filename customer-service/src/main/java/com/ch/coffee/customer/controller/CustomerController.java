@@ -63,13 +63,17 @@ public class CustomerController {
     public CoffeeOrder createAndPayOrder() {
         NewOrderRequest orderRequest = NewOrderRequest.builder()
                 .customer(customer)
-                .items(Arrays.asList("capuccino"))
+                .items(Collections.singletonList("capuccino"))
                 .build();
+        // 点单
         CoffeeOrder order = orderService.create(orderRequest);
         log.info("Create order: {}", order != null ? order.getId() : "-");
-        order = orderService.updateState(order.getId(),
-                OrderStateRequest.builder().state(OrderStateEnum.PAID.getCode()).build());
-        log.info("Order is PAID: {}", order);
+        // 支付
+        if (order != null) {
+            order = orderService.updateState(order.getId(),
+                    OrderStateRequest.builder().state(OrderStateEnum.PAID.getCode()).build());
+            log.info("Order is PAID: {}", order);
+        }
         return order;
     }
 }
